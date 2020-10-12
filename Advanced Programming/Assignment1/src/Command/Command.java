@@ -1,5 +1,4 @@
-package Model;
-
+package Command;
 
 import java.util.Arrays;
 

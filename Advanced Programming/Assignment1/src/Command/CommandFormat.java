@@ -1,4 +1,4 @@
-package Model;
+package Command;
 
 public class CommandFormat {
     private final String name;

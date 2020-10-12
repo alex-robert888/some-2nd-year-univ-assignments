@@ -2,10 +2,9 @@ package View;
 
 
 import java.util.ArrayList;
-import java.util.Map;
 import java.util.Scanner;
 import Controller.ControllerTrees;
-import Model.Command;
+import Command.Command;
 
 public class ViewTrees {
     ControllerTrees controllerTrees;
