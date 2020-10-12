@@ -1,0 +1,31 @@
+void ListProblem::deleteFromNtoN(ListNode* node, int i, const int n)
+{
+	// for 1 to 1
+	if (n == 1) { 
+		if (node == nullptr)	return;
+		deleteFromNtoN(node->next, 1, n);
+		delete node;
+		node = nullptr;
+		return;
+	}
+	
+	if (node->next == nullptr) {
+		return;
+	}
+
+	if (i == n - 1) {
+		ListNode* nodeToDelete = node->next;
+		// if the node to delete is the very last
+		if (nodeToDelete->next == nullptr) {
+			delete node->next;
+			node->next = nullptr;
+			return;
+		}
+		node->next = nodeToDelete->next;
+		node = nodeToDelete->next;
+		delete nodeToDelete;
+		deleteFromNtoN(node, 1, n);
+		return;
+	}
+	deleteFromNtoN(node->next, i + 1, n);
+}

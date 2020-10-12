@@ -6,7 +6,7 @@ int main() {
 	ListProblem listProblem;
 	listProblem.printList();
 	listProblem.solve();
-	std::cout << "After removing: ";
+	std::cout << "\nAfter removing: ";
 	listProblem.printList();
 	return 0;
 }

@@ -30,6 +30,14 @@ void ListProblem::printListRec(ListNode* node)
 	}
 }
 
+/*
+	Mathematical model: 
+	getLastElementOfList(node) = {
+		- 0, if node = NIL
+		- node->value, if node->next = NIL
+		- getLastElementOfList(node->next), otherwise
+	}
+*/
 TElem ListProblem::getLastElementOfList(ListNode* node)
 {
 	if (node == nullptr) {
@@ -42,21 +50,39 @@ TElem ListProblem::getLastElementOfList(ListNode* node)
 	getLastElementOfList(node->next);
 }
 
+/*
+	Mathematical model:
+	deleteFromNtoN(node, i, n) = {
+		NIL, if node = NIL
+		deleteFromNtoN(node->next, 1, n), if n = 1
+		NIL, if node->next = NIL
+		deleteFromNtoN(node->next, 1, n), if i = n - 1
+		deleteFromNtoN(node->next, i + 1, n), otherwise
+	}
+*/
 void ListProblem::deleteFromNtoN(ListNode* node, int i, const int n)
 {
-	// for 1 to 1
+	// base case
+	if (node == nullptr) {
+		return;
+	}
+
+	// for 1 to 1 case
 	if (n == 1) { 
-		if (node == nullptr)	return;
 		deleteFromNtoN(node->next, 1, n);
 		delete node;
 		node = nullptr;
 		return;
 	}
 	
+	// in the case that there is one element left in the list and n != 1, 
+	// then we know for sure that we won't remove this element,
+	// because otherwise the program would have stopped before the node to delete
 	if (node->next == nullptr) {
 		return;
 	}
 
+	// if we got to the position right before the node to delete
 	if (i == n - 1) {
 		ListNode* nodeToDelete = node->next;
 		// if the node to delete is the very last
@@ -66,11 +92,11 @@ void ListProblem::deleteFromNtoN(ListNode* node, int i, const int n)
 			return;
 		}
 		node->next = nodeToDelete->next;
-		node = nodeToDelete->next;
+		deleteFromNtoN(nodeToDelete->next, 1, n);
 		delete nodeToDelete;
-		deleteFromNtoN(node, 1, n);
 		return;
 	}
+
 	deleteFromNtoN(node->next, i + 1, n);
 }
 
@@ -79,11 +105,13 @@ void ListProblem::solveA()
 	std::cout << "\nLast element of the list: " << this->getLastElementOfList(this->list.head);
 }
 
+
 void ListProblem::solveB()
 {
 	int n;
-	std::cout << "n: ";
+	std::cout << "\nn: ";
 	std::cin >> n;
+	if (n <= 0) return;
 	deleteFromNtoN(this->list.head, 1, n);
 	this->list.head = n == 1 ? nullptr : list.head;
 }
