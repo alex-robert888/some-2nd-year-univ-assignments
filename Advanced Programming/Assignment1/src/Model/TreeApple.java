@@ -9,10 +9,12 @@ public class TreeApple implements ITree{
         this.age = age;
     }
 
+    @Override
     public int getAge() {
         return age;
     }
 
+    @Override
     public String convertToString() {
         return "apple tree of age: " + Integer.toString(age);
     }

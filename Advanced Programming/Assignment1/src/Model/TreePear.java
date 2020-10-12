@@ -7,10 +7,12 @@ public class TreePear implements ITree{
         this.age = age;
     }
 
+    @Override
     public int getAge() {
         return age;
     }
 
+    @Override
     public String convertToString() {
         return "pear tree of age: " + Integer.toString(age);
     }

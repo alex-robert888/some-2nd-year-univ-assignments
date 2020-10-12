@@ -15,6 +15,7 @@ public class RepositoryTrees implements IRepository{
         size = 0;
     }
 
+    @Override
     public void store(ITree tree) throws RepositoryFullException {
         if (isFull()) {
             throw new RepositoryFullException("Repository is full!");
@@ -22,6 +23,7 @@ public class RepositoryTrees implements IRepository{
         this.state[size++] = tree;
     }
 
+    @Override
     public void delete(ITree tree) throws NotExistingTreeException {
         for (int i = 0; i < this.size; ++i) {
             if (tree.getClass().equals(this.state[i].getClass()) && tree.getAge() == this.state[i].getAge()) {
@@ -32,13 +34,14 @@ public class RepositoryTrees implements IRepository{
         throw new NotExistingTreeException("Specified tree does not exist!");
     }
 
+    @Override
     public ITree[] getStateCopy() {
         ITree[] copyState = new ITree[this.size];
         System.arraycopy(this.state, 0, copyState, 0, this.size);
         return copyState;
     }
 
-    private boolean isFull() {
+    public boolean isFull() {
         return this.size == this.CAPACITY;
     }
 
