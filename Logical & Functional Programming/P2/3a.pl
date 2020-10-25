@@ -38,3 +38,7 @@ merge_sorted_lists_no_duplicates([H1 | T1], [H2 | T2], MergedList, PrevElement) 
     H1 =:= H2 -> MergedList = OldMergedList, merge_sorted_lists_no_duplicates([H1 | T1], T2, OldMergedList, PrevElement), !;
     H1 < H2 -> MergedList = [H1 | OldMergedList], merge_sorted_lists_no_duplicates(T1, [H2 | T2], OldMergedList, H1), !;
     H1 > H2 -> MergedList = [H2 | OldMergedList], merge_sorted_lists_no_duplicates([H1 | T1], T2, OldMergedList, H2).
+
+test_3a :-
+    merge_sorted_lists_no_duplicates([1, 1, 2, 3], [1, 2, 2, 2, 2, 4, 5], X, 0),
+    write(X).
