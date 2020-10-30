@@ -23,7 +23,7 @@ my_list_member([_ | T], Atom) :-
         l11 (+) merge_2_lists_no_duplicates([l12...l1n], [l21...l2m], MergedList), if !list_member(MergedList, l11)
         merge_2_lists_no_duplicates([l12...l1n], [l21...l2m], MergedList), if list_member(MergedList, l11)
     }
-    Flow Model: merge_2_lists_no_duplicates(i, i, o)
+    Flow Model: (i, i, i) (i, i, o)
 */
 merge_2_lists_no_duplicates([], List2, List2) :- !.
 
@@ -43,7 +43,7 @@ merge_2_lists_no_duplicates([H_List1 | T_List1], List2, OldMergedList) :-
         merge_all_sublists([h2...hn], merge_2_lists_no_duplicates(h1, [m1...mp])), if h1 is a list
     }    
 
-    Flow Model: (i, o)
+    Flow Model: (i, i) (i, o)
 */
 merge_all_sublists([], []).
 

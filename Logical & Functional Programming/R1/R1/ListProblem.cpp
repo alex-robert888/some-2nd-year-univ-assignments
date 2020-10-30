@@ -32,10 +32,10 @@ void ListProblem::printListRec(ListNode* node)
 
 /*
 	Mathematical model: 
-	getLastElementOfList(node) = {
-		- 0, if node = NIL
-		- node->value, if node->next = NIL
-		- getLastElementOfList(node->next), otherwise
+	getLastElementOfList([l1, l2, l3, ..., ln]) = {
+		- 0, if l empty
+		- l1, if n = 1
+		- getLastElementOfList([l2, l3, ..., ln]), otherwise
 	}
 */
 TElem ListProblem::getLastElementOfList(ListNode* node)
@@ -52,12 +52,11 @@ TElem ListProblem::getLastElementOfList(ListNode* node)
 
 /*
 	Mathematical model:
-	deleteFromNtoN(node, i, n) = {
-		NIL, if node = NIL
-		deleteFromNtoN(node->next, 1, n), if n = 1
-		NIL, if node->next = NIL
-		deleteFromNtoN(node->next, 1, n), if i = n - 1
-		deleteFromNtoN(node->next, i + 1, n), otherwise
+	deleteFromNtoN(l, i, n) = {
+		[], if l empty
+		deleteFromNtoN([l2, l3, ..., ln], 1, n), if n = 1
+		deleteFromNtoN([l2, l3, ..., ln], 1, n), if i = n - 1
+		l1 + deleteFromNtoN([l2, l3, ..., ln], i + 1, n), otherwise
 	}
 */
 void ListProblem::deleteFromNtoN(ListNode* node, int i, const int n)
@@ -67,7 +66,7 @@ void ListProblem::deleteFromNtoN(ListNode* node, int i, const int n)
 		return;
 	}
 
-	// for 1 to 1 case
+	// for 1 to 1 case, took this separately because it is the only case when I don't stop right before the element
 	if (n == 1) { 
 		deleteFromNtoN(node->next, 1, n);
 		delete node;

@@ -2,9 +2,9 @@
 /*
     SORTED LISTS MERGING FUNCTION (WITH NO DUPLICATES)
 
-    Flow Model: (i, i, o)
+    Flow Model: (i, i, o, o)
 
-    merge_sorted_lists_no_duplicates([l11...l1n], [l21...l2m], [m1...mp]) = {
+    merge_sorted_lists_no_duplicates([l11...l1n], [l21...l2m], [m1...mp], PrevElement) = {
         [], if n = 0 && m = 0
 
         merge_sorted_lists_no_duplicates([l12...l1n], [], OldMergedList, PrevElement), if m = 0 && l11 == PrevElement
@@ -15,9 +15,9 @@
 
         merge_sorted_lists_no_duplicates([l12...l1n], [l21...l2m], OldMergedList, PrevElement), l11 == PrevElement
         merge_sorted_lists_no_duplicates([l11...l1n], [l22...l2m], OldMergedList, PrevElement), l21 == PrevElement
-        l11 (+) merge_sorted_lists_no_duplicates([l12...l1n], [l21...l2m], [m1...mp]), if l11 < l21
-        l21 (+) merge_sorted_lists_no_duplicates([l11...l1n], [l22...l2m], [m1...mp]), if l11 > l21
-        merge_sorted_lists_no_duplicates([l11...l1n], [l21...l2m], [m1...mp], otherwise
+        l11 (+) merge_sorted_lists_no_duplicates([l12...l1n], [l21...l2m], [m1...mp], l11), if l11 < l21
+        l21 (+) merge_sorted_lists_no_duplicates([l11...l1n], [l22...l2m], [m1...mp], l21), if l11 > l21
+        merge_sorted_lists_no_duplicates([l11...l1n], [l21...l2m], [m1...mp], PrevElement), otherwise
     }
 */
 
@@ -40,5 +40,5 @@ merge_sorted_lists_no_duplicates([H1 | T1], [H2 | T2], MergedList, PrevElement) 
     H1 > H2 -> MergedList = [H2 | OldMergedList], merge_sorted_lists_no_duplicates([H1 | T1], T2, OldMergedList, H2).
 
 test_3a :-
-    merge_sorted_lists_no_duplicates([1, 1, 2, 3], [1, 2, 2, 2, 2, 4, 5], X, 0),
+    merge_sorted_lists_no_duplicates([1, 1, 2, 3], [1, 2, 2, 2, 2, 4, 5], X, -1000),
     write(X).
