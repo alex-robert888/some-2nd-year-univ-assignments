@@ -6,7 +6,7 @@ import Model.Value.IValue;
 public class ValueExpression implements IExpression {
     IValue value;
 
-    ValueExpression(IValue value) {
+    public ValueExpression(IValue value) {
         this.value = value;
     }
     @Override

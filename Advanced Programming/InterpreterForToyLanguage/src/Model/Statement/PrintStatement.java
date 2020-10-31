@@ -8,7 +8,7 @@ import Model.ProgramState;
 public class PrintStatement implements IStatement {
 
     IExpression expression;
-    PrintStatement(IExpression expression) {
+    public PrintStatement(IExpression expression) {
         this.expression = expression;
     }
 

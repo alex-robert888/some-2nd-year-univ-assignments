@@ -11,7 +11,7 @@ public class IfElseStatement implements IStatement{
     IStatement thenStatement;
     IStatement elseStatement;
 
-    IfElseStatement(IExpression expression, IStatement thenStatement, IStatement elseStatement) {
+    public IfElseStatement(IExpression expression, IStatement thenStatement, IStatement elseStatement) {
         this.expression = expression;
         this.thenStatement = thenStatement;
         this.elseStatement = elseStatement;
@@ -20,7 +20,7 @@ public class IfElseStatement implements IStatement{
     @Override
     public ProgramState execute(ProgramState programState) throws Exception {
         IValue expressionValue = this.expression.evaluate(programState.getSymbolTable());
-        if (expressionValue.getType().equals(new BoolType())) {
+        if (!expressionValue.getType().equals(new BoolType())) {
             throw new Exception("IF statement failed. Expression of IF has not a boolean value.");
         }
 

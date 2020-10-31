@@ -8,9 +8,9 @@ import Model.Value.IntValue;
 public class ArithmeticExpression implements IExpression {
     IExpression expressionLeft;
     IExpression expressionRight;
-    ArithmeticOperator arithmeticOperator;
+    String arithmeticOperator;
 
-    ArithmeticExpression(IExpression expressionLeft, IExpression expressionRight, ArithmeticOperator arithmeticOperator) {
+    public ArithmeticExpression(String arithmeticOperator, IExpression expressionLeft, IExpression expressionRight) {
         this.expressionLeft = expressionLeft;
         this.expressionRight = expressionRight;
         this.arithmeticOperator = arithmeticOperator;
@@ -18,12 +18,12 @@ public class ArithmeticExpression implements IExpression {
     @Override
     public IValue evaluate(IADTDictionary<String, IValue> symbolTable) throws Exception {
         IValue expressionLeftValue = expressionLeft.evaluate(symbolTable);
-        if (expressionLeftValue.getType().equals(new IntType())) {
+        if (!expressionLeftValue.getType().equals(new IntType())) {
             throw new Exception("Left side of the arithmetic expression is not integer.");
         }
 
         IValue expressionRightValue = expressionRight.evaluate(symbolTable);
-        if (expressionRightValue.getType().equals(new IntType())) {
+        if (!expressionRightValue.getType().equals(new IntType())) {
             throw new Exception("Right side of the arithmetic expression is not integer.");
         }
 
@@ -35,42 +35,25 @@ public class ArithmeticExpression implements IExpression {
 
     @Override
     public String toString() {
-        return this.expressionLeft.toString() + " " + this.getStringOperator() + " " + this.expressionRight.toString();
+        return this.expressionLeft.toString() + " " + this.arithmeticOperator + " " + this.expressionRight.toString();
     }
 
     private IntValue performOperation(IADTDictionary<String, IValue> symbolTable, IntValue expressionRightValueInt, IntValue expressionLeftValueInt) {
         switch (this.arithmeticOperator) {
-            case ADDITION -> {
+            case "+" -> {
                 return new IntValue(expressionLeftValueInt.getValue() + expressionRightValueInt.getValue());
             }
-            case SUBTRACTION -> {
+            case "-" -> {
                 return new IntValue(expressionLeftValueInt.getValue() - expressionRightValueInt.getValue());
             }
-            case MULTIPLICATION -> {
+            case "*" -> {
                 return new IntValue(expressionLeftValueInt.getValue() * expressionRightValueInt.getValue());
             }
-            case DIVISION -> {
+            case "/" -> {
                 return new IntValue(expressionLeftValueInt.getValue() / expressionRightValueInt.getValue());
             }
         }
         return null;
     }
 
-    private String getStringOperator() {
-        switch (this.arithmeticOperator) {
-            case ADDITION -> {
-                return "+";
-            }
-            case SUBTRACTION -> {
-                return "-";
-            }
-            case MULTIPLICATION -> {
-                return "*";
-            }
-            case DIVISION -> {
-                return "/";
-            }
-        }
-        return null;
-    }
 }

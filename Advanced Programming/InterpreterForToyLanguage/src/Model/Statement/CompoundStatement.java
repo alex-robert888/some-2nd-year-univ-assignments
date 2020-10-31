@@ -19,8 +19,8 @@ public class CompoundStatement implements IStatement {
     @Override
     public ProgramState execute(ProgramState programState) throws Exception {
         IADTStack<IStatement> executionStack = programState.getExecutionStack();
-        executionStack.push(this.leftStatement);
         executionStack.push(this.rightStatement);
+        executionStack.push(this.leftStatement);
         return programState;
     }
 
@@ -31,6 +31,6 @@ public class CompoundStatement implements IStatement {
 
     @Override
     public String toString() {
-        return new String(this.leftStatement.toString() + ";\n" + this.rightStatement.toString() + '\n');
+        return new String(this.leftStatement.toString() + " " + this.rightStatement.toString() + " ");
     }
 }

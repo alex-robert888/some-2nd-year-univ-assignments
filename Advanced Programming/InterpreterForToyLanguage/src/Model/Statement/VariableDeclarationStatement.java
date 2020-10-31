@@ -13,7 +13,7 @@ public class VariableDeclarationStatement implements IStatement{
     String variableName;
     IType type;
 
-    VariableDeclarationStatement(String variableName, IType type) {
+    public VariableDeclarationStatement(String variableName, IType type) {
         this.variableName = variableName;
         this.type = type;
     }

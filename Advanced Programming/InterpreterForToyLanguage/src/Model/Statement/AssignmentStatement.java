@@ -11,7 +11,7 @@ public class AssignmentStatement implements IStatement {
     String variableName;
     IExpression expression;
 
-    AssignmentStatement(String variableName, IExpression expression) {
+    public AssignmentStatement(String variableName, IExpression expression) {
         this.variableName = variableName;
         this.expression = expression;
     }

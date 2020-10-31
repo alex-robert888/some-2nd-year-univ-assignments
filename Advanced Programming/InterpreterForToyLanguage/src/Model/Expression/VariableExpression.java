@@ -6,7 +6,7 @@ import Model.Value.IValue;
 public class VariableExpression implements IExpression {
     String variableName;
 
-    VariableExpression(String variableName) {
+    public VariableExpression(String variableName) {
         this.variableName = variableName;
     }
     @Override

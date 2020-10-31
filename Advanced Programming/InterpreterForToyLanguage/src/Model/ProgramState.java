@@ -6,6 +6,8 @@ import Model.ADT.IADTStack;
 import Model.Statement.IStatement;
 import Model.Value.IValue;
 
+import java.util.Iterator;
+
 public class ProgramState {
     IADTStack<IStatement> executionStack;
     IADTDictionary<String, IValue> symbolTable;
@@ -34,4 +36,8 @@ public class ProgramState {
         return this.outputList;
     }
 
+    public String toString() {
+        return "----- Program State -----\n== Execution stack: \n" + this.executionStack + "\n== Symbol Table: \n"
+                + this.symbolTable.toString() + "\n== Output: \n" + this.outputList.toString() + "\n";
+    }
 }
