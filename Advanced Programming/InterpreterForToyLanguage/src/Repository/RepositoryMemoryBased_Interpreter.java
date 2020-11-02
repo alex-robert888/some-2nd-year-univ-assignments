@@ -12,7 +12,10 @@ public class RepositoryMemoryBased_Interpreter implements IRepository_Interprete
     }
 
     @Override
-    public ProgramState getCurrentProgramState() {
+    public ProgramState getCurrentProgramState() throws RuntimeException {
+        if (this.programStates.isEmpty()) {
+            throw new RuntimeException();
+        }
         return this.programStates.get(this.programStates.size() - 1);
     }
 
@@ -22,5 +25,10 @@ public class RepositoryMemoryBased_Interpreter implements IRepository_Interprete
         System.out.println("Program state loaded into repository");
     }
 
-    public void updateProgramState(ProgramState updatedProgramState) {  this.programStates.set(this.programStates.size() - 1, updatedProgramState); };
+    public void updateProgramState(ProgramState updatedProgramState) {
+        if (this.programStates.isEmpty()) {
+            throw new RuntimeException();
+        }
+        this.programStates.set(this.programStates.size() - 1, updatedProgramState);
+    }
 }

@@ -9,6 +9,12 @@ ALTER TABLE PersonalTasks
 ALTER TABLE PersonalTasks
 	ADD deadline datetime;
 
+ALTER TABLE PersonalTasks
+	ADD TaskPriority varchar(30);
+
+ALTER TABLE PersonalTasks
+	DROP COLUMN TaskPriority
+
 ALTER TABLE ChatMessages
 	ADD time_sent datetime;
 
@@ -48,7 +54,6 @@ UPDATE Users SET Age = 23 WHERE ID = 5
 UPDATE Users SET Age = 27 WHERE ID = 6
 UPDATE Users SET Age = 22 WHERE ID = 7
 
-Set DateFormat MDY; 
 
 -- Second INSERT statement for PersonalTasks
 INSERT INTO PersonalTasks VALUES ('Finish the essay for tomorrow', '', 1, '20201018 10:00:00 AM', '20201018 11:30:00 AM'), 
@@ -116,15 +121,15 @@ UPDATE PersonalTasks
 SELECT * FROM Users;
 
 -- Select with OR
-SELECT * FROM Users	
+SELECT TOP 3 * FROM Users	
 	WHERE FirstName LIKE 'A%' OR LastName LIKE 'A%'
 
 
 -- Select with UNION
-SELECT FirstName FROM Users
+SELECT DISTINCT FirstName FROM Users
 	WHERE FirstName LIKE 'A%'
 UNION
-SELECT LastName FROM Users
+SELECT DISTINCT LastName FROM Users
 	WHERE LastName LIKE 'A%'
 
 -- b. 2 queries with the intersection operation; use INTERSECT and IN;
@@ -226,7 +231,7 @@ SELECT username, ID FROM Users
 	)
 	ORDER BY username
 
--- g. 2 queries with a subquery in the FROM clause;SELECT personal_tasks.Title 
+-- g. 2 queries with a subquery in the FROM clause;SELECT DISTINCT personal_tasks.Title 
 	FROM (
 		SELECT p.Title, Users.Username FROM PersonalTasks p
 		INNER JOIN Users ON p.UserID = Users.ID
@@ -281,3 +286,64 @@ SELECT AVG(Users.Age), ChatRoomMemberships.ChatRoomID
 		FROM Users
 		WHERE Users.Email LIKE '%@yahoo.com'
 	)
+
+-- 4 queries using ANY and ALL to introduce a subquery in the WHERE clause; rewrite 2 of them with aggregation operators, and the other 2 with [NOT] IN.
+
+SELECT UserID FROM ChatRoomMemberships
+	WHERE ChatRoomID = 1
+	AND UserID <>ALL (
+		SELECT UserID FROM ChatRoomMemberships
+		WHERE ChatRoomID = 2
+	)
+
+SELECT UserID FROM ChatRoomMemberships
+	WHERE ChatRoomID = 1
+	AND UserID NOT IN (
+		SELECT UserID FROM ChatRoomMemberships
+		WHERE ChatRoomID = 2
+	)
+
+SELECT SUM(Users.Age) / COUNT(Users.Age), ChatRoomMemberships.ChatRoomID
+	FROM Users
+	LEFT JOIN ChatRoomMemberships ON Users.ID= ChatRoomMemberships.UserID 
+	GROUP BY ChatRoomMemberships.ChatRoomID
+	HAVING ChatRoomMemberships.ChatRoomID <>ALL (
+		SELECT ChatRoomID FROM ChatRoomMemberships
+		WHERE ChatRoomID IN (1)
+	)
+
+SELECT AVG(Users.Age)  / COUNT(Users.Age), ChatRoomMemberships.ChatRoomID
+	FROM Users
+	LEFT JOIN ChatRoomMemberships ON Users.ID= ChatRoomMemberships.UserID 
+	GROUP BY ChatRoomMemberships.ChatRoomID
+	HAVING ChatRoomMemberships.ChatRoomID NOT IN (
+		SELECT ChatRoomID FROM ChatRoomMemberships
+		WHERE ChatRoomID IN (1, 2)
+	)
+
+SELECT TOP 2 UserID FROM ChatRoomMemberships
+	WHERE ChatRoomID = 1  AND UserID = ANY(SELECT UserID FROM PersonalTasks)
+
+SELECT UserID FROM ChatRoomMemberships
+	WHERE ChatRoomID = 1  AND UserID IN (SELECT UserID FROM PersonalTasks)
+
+SELECT AVG(Users.Age), ChatRoomMemberships.ChatRoomID
+	FROM Users
+	LEFT JOIN ChatRoomMemberships ON Users.ID= ChatRoomMemberships.UserID 
+	GROUP BY ChatRoomMemberships.ChatRoomID
+	HAVING ChatRoomMemberships.ChatRoomID = ANY (
+		SELECT ChatRoomID FROM ChatRoomMemberships
+		WHERE ChatRoomID IN (1, 2)
+	)
+
+SELECT AVG(Users.Age), ChatRoomMemberships.ChatRoomID
+	FROM Users
+	LEFT JOIN ChatRoomMemberships ON Users.ID= ChatRoomMemberships.UserID 
+	GROUP BY ChatRoomMemberships.ChatRoomID
+	HAVING ChatRoomMemberships.ChatRoomID IN (
+		SELECT ChatRoomID FROM ChatRoomMemberships
+		WHERE ChatRoomID IN (1, 2)
+	)
+
+
+
