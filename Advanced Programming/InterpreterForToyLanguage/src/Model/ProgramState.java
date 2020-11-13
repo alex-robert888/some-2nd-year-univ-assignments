@@ -30,19 +30,19 @@ public class ProgramState {
 
     public IADTStack<IStatement> getExecutionStack() {
         return this.executionStack;
-    }  /// CHANGE TO DEEP COPY!
+    }
 
     public IADTDictionary<String, IValue> getSymbolTable() {
         return this.symbolTable;
-    }  /// CHANGE TO DEEP COPY & STRING VALUE!
+    }
 
     public IADTList<String> getOutputList() {
         return this.outputList;
-    } /// CHANGE TO DEEP COPY!
+    }
 
     public IADTDictionary<StringValue, BufferedReader> getFileTable() {
         return this.fileTable;
-    } /// CHANGE TO DEEP COPY!
+    }
 
     public String toString() {
         return "----- Program State -----\n== Execution stack: \n" + this.executionStack + "\n== Symbol Table: \n"

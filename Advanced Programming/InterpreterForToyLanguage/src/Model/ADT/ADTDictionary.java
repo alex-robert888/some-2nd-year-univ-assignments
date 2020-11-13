@@ -24,6 +24,11 @@ public class ADTDictionary<T_Key, T_Value> implements IADTDictionary<T_Key, T_Va
     }
 
     @Override
+    public T_Value remove(T_Key key) {
+        return this.map.remove(key);
+    }
+
+    @Override
     public String toString() {
         StringJoiner stringJoiner = new StringJoiner("\n");
         for (Map.Entry<T_Key, T_Value> entry : map.entrySet()) {
