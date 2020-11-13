@@ -20,6 +20,11 @@ public class IntValue implements IValue {
         return Integer.toString(this.value);
     }
 
+    @Override
+    public boolean equals(IValue other) {
+        return other instanceof IntValue;
+    }
+
     public int getValue() {
         return this.value;
     }

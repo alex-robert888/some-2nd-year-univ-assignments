@@ -83,7 +83,7 @@ public class Interpreter_View {
             throw new Exception("Invalid command parameters");
         }
         this.loadedProgramName = splitRawCommand[1];
-        ProgramState programState = new ProgramState(new ADTStack<>(), new ADTDictionary<>(), new ADTList<>(), this.programsMap.get(this.loadedProgramName));
+        ProgramState programState = new ProgramState(new ADTStack<>(), new ADTDictionary<>(), new ADTList<>(), new ADTDictionary<>(), this.programsMap.get(this.loadedProgramName));
         this.controller_interpreter.addProgramStateToRepository(programState);
     }
 

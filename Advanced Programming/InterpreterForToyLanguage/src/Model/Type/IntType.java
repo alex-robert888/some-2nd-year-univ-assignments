@@ -1,5 +1,7 @@
 package Model.Type;
 
+import Model.Value.*;
+
 public class IntType implements IType{
     public IntType() {
 
@@ -13,8 +15,8 @@ public class IntType implements IType{
     public String toString() {
         return new String("int");
     }
-
-    public int defaultValue() {
-        return 0;
+    @Override
+    public IValue defaultValue() {
+        return new IntValue(0);
     }
 }

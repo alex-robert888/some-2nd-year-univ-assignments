@@ -1,5 +1,8 @@
 package Model.Type;
 
+import Model.Value.BoolValue;
+import Model.Value.IValue;
+
 public class BoolType implements IType{
     public BoolType() {
 
@@ -13,7 +16,7 @@ public class BoolType implements IType{
         return "bool";
     }
 
-    public boolean defaultValue() {
-        return false;
+    public IValue defaultValue() {
+        return new BoolValue(false);
     }
 }
