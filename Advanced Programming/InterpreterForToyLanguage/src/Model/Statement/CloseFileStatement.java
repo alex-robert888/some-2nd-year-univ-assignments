@@ -26,14 +26,15 @@ public class CloseFileStatement implements IStatement{
 
         // Get file descriptor from file table
         var fileTable = programState.getFileTable();
-        BufferedReader bufferedReader = fileTable.getValue((StringValue) expressionFileName);
+        StringValue expressionStringValue = (StringValue) expressionValue;
+        BufferedReader bufferedReader = fileTable.getValue(expressionStringValue);
         if (bufferedReader == null) {
             throw new Exception(String.format("File %s was not opened.", this.expressionFileName.toString()));
         }
 
         // Close file and remove it from file table
         bufferedReader.close();
-        fileTable.remove((StringValue) expressionValue);
+        fileTable.remove(expressionStringValue);
         return programState;
     }
 

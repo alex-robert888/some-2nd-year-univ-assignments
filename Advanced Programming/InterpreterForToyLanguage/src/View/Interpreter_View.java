@@ -11,7 +11,6 @@ import Model.ProgramState;
 
 import Model.Statement.*;
 import Model.Type.*;
-import Model.Expression.*;
 import Model.Value.*;
 
 import java.util.HashMap;
@@ -57,7 +56,17 @@ public class Interpreter_View {
                                             IntValue(2))), new AssignmentStatement("v", new ValueExpression(new IntValue(3)))), new PrintStatement(new
                                             VariableExpression("v")))))));
 
-
+        this.programsMap.put("ex4",
+                new CompoundStatement(new VariableDeclarationStatement("varf", new StringType()),
+                        new CompoundStatement(new AssignmentStatement("varf", new ValueExpression(new StringValue("test.in"))),
+                                new CompoundStatement(new OpenFileStatement(new VariableExpression("varf")),
+                                        new CompoundStatement(new VariableDeclarationStatement("varc", new IntType()),
+                                                new CompoundStatement(new ReadFileStatement(new VariableExpression("varf"), "varc"),
+                                                    new CompoundStatement(new PrintStatement(new VariableExpression("varc")),
+                                                        new CompoundStatement(new ReadFileStatement(new VariableExpression("varf"), "varc"),
+                                                                new CompoundStatement(new PrintStatement(new VariableExpression("varc")),
+                                                                        new CloseFileStatement(new VariableExpression("varf"))
+                                                        )))))))));
     }
 
     public void run() {

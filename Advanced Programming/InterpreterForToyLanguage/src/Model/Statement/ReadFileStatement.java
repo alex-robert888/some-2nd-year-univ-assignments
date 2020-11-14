@@ -34,10 +34,11 @@ public class ReadFileStatement implements IStatement{
         }
 
         // Get file descriptor from file table
+        StringValue expressionFileNameStringValue = (StringValue)expressionFileNameValue;
         var fileTable = programState.getFileTable();
-        BufferedReader bufferedReader = fileTable.getValue((StringValue) expressionFileName);
+        BufferedReader bufferedReader = fileTable.getValue(expressionFileNameStringValue);
         if (bufferedReader == null) {
-            throw new Exception(String.format("File %s was not opened.", this.expressionFileName.toString()));
+            throw new Exception(String.format("File %s was not opened.", expressionFileNameStringValue.getValue()));
         }
 
         // Read next line from file
@@ -59,6 +60,6 @@ public class ReadFileStatement implements IStatement{
 
     @Override
     public String toString() {
-        return String.format("readFile(%s, %s)", this.expressionFileName, this.variableNameToStoreReadFileOutput);
+        return String.format("readFile(%s, %s);", this.expressionFileName, this.variableNameToStoreReadFileOutput);
     }
 }

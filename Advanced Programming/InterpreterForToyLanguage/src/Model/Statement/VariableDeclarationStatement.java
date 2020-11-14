@@ -5,9 +5,11 @@ import Model.ProgramState;
 import Model.Type.BoolType;
 import Model.Type.IType;
 import Model.Type.IntType;
+import Model.Type.StringType;
 import Model.Value.BoolValue;
 import Model.Value.IValue;
 import Model.Value.IntValue;
+import Model.Value.StringValue;
 
 public class VariableDeclarationStatement implements IStatement{
     String variableName;
@@ -30,6 +32,9 @@ public class VariableDeclarationStatement implements IStatement{
         }
         else if (this.type.equals(new BoolType())) {
             symbolTable.put(this.variableName, new BoolValue(false));
+        }
+        else if (this.type.equals(new StringType())) {
+            symbolTable.put(this.variableName, new StringValue(""));
         }
 
         return programState;

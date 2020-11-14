@@ -258,7 +258,7 @@ SELECT AVG(Users.Age), ChatRoomMemberships.ChatRoomID
 	GROUP BY ChatRoomMemberships.ChatRoomID
 
 -- 2nd querry - MIN of ages in each chat room, having users.id >= 3
-SELECT TOP 2 MIN(Users.Age), ChatRoomMemberships.ChatRoomID
+SELECT MIN(Users.Age), ChatRoomMemberships.ChatRoomID
 	FROM Users
 	FULL JOIN ChatRoomMemberships ON Users.ID= ChatRoomMemberships.UserID 
 	GROUP BY ChatRoomMemberships.ChatRoomID
@@ -276,7 +276,7 @@ SELECT MAX(Users.Age), ChatRoomMemberships.ChatRoomID
 
 SELECT * FROM ChatMessages
 
--- 4th querry
+-- 4th querry - count users that have more than 2 messages
 SELECT AVG(Users.Age), ChatRoomMemberships.ChatRoomID
 	FROM Users
 	INNER JOIN ChatRoomMemberships ON Users.ID= ChatRoomMemberships.UserID 

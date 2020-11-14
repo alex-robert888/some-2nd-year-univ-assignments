@@ -26,9 +26,10 @@ public class OpenFileStatement implements IStatement {
         }
 
         // Verify that the file is not already open (present in the file table)
+        StringValue expressionStringValue = (StringValue) expressionValue;
         var fileTable = programState.getFileTable();
-        if (fileTable.isKeyDefined((StringValue) expressionValue)) {
-            throw new Exception(String.format("openFile statement failed. File %s already opened.", expressionValue));
+        if (fileTable.isKeyDefined(expressionStringValue)) {
+            throw new Exception(String.format("openFile statement failed. File %s already opened.", expressionStringValue.getValue()));
         }
 
         // Open the file from the path given as argument. Catch potential IO errors.
@@ -37,11 +38,12 @@ public class OpenFileStatement implements IStatement {
             bufferedReader = new BufferedReader(new FileReader(((StringValue) expressionValue).getValue()));
         }
         catch (Exception exception) {
-            throw new Exception(String.format("openFile statement failed. Failed to open file: %s.", expressionValue));
+            throw exception;
+            // throw new Exception(String.format("openFile statement failed. Failed to open file: %s.", expressionValue));
         }
 
         // Add file descriptor to file table
-        fileTable.put((StringValue) expressionValue, bufferedReader);
+        fileTable.put(expressionStringValue, bufferedReader);
 
         return programState;
     }
