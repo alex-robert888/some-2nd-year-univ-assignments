@@ -13,11 +13,7 @@ public class Controller_Interpreter {
         this.repositoryMemoryBased_interpreter = repositoryMemoryBased_interpreter;
     }
 
-    public void addProgramStateToRepository(ProgramState programState) {
-        this.repositoryMemoryBased_interpreter.addProgramState(programState);
-    }
-
-    public ProgramState runOneStep(String[] splitRawCommand) throws Exception {
+    public ProgramState runOneStep() throws Exception {
         ProgramState programState = this.repositoryMemoryBased_interpreter.getCurrentProgramState();
         var executionStack= programState.getExecutionStack();
         if(executionStack.isEmpty()) {
@@ -30,7 +26,7 @@ public class Controller_Interpreter {
         return programState;
     }
 
-    public ProgramState runAllStep(String[] splitRawCommand) throws Exception {
+    public ProgramState runAllStep() throws Exception {
         ProgramState programState = this.repositoryMemoryBased_interpreter.getCurrentProgramState();
         var executionStack= programState.getExecutionStack();
         System.out.println(programState.toString());

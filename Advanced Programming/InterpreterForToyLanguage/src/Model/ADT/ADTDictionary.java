@@ -32,7 +32,7 @@ public class ADTDictionary<T_Key, T_Value> implements IADTDictionary<T_Key, T_Va
     public String toString() {
         StringJoiner stringJoiner = new StringJoiner("\n");
         for (Map.Entry<T_Key, T_Value> entry : map.entrySet()) {
-            stringJoiner.add(entry.getKey().toString() + " -> " + entry.getValue().toString() + "\n");
+            stringJoiner.add(entry.getKey().toString() + " --> " + entry.getValue().toString() + "\n");
         }
         return stringJoiner.toString();
     }
