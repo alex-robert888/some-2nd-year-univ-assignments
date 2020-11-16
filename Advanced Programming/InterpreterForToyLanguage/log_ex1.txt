@@ -1,0 +1,58 @@
+----- Program State -----
+== Execution stack: 
+int v; v = 2; print(v);  
+== Symbol Table: 
+
+== Output: 
+
+ File Table: 
+
+----- Program State -----
+== Execution stack: 
+int v; | v = 2; print(v); 
+== Symbol Table: 
+
+== Output: 
+
+ File Table: 
+
+----- Program State -----
+== Execution stack: 
+v = 2; print(v); 
+== Symbol Table: 
+v --> 0
+
+== Output: 
+
+ File Table: 
+
+----- Program State -----
+== Execution stack: 
+v = 2; | print(v);
+== Symbol Table: 
+v --> 0
+
+== Output: 
+
+ File Table: 
+
+----- Program State -----
+== Execution stack: 
+print(v);
+== Symbol Table: 
+v --> 2
+
+== Output: 
+
+ File Table: 
+
+----- Program State -----
+== Execution stack: 
+
+== Symbol Table: 
+v --> 2
+
+== Output: 
+2
+ File Table: 
+

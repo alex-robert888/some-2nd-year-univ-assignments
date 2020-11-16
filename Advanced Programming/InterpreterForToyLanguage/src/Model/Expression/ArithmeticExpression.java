@@ -38,7 +38,7 @@ public class ArithmeticExpression implements IExpression {
         return this.expressionLeft.toString() + " " + this.arithmeticOperator + " " + this.expressionRight.toString();
     }
 
-    private IntValue performOperation(IADTDictionary<String, IValue> symbolTable, IntValue expressionRightValueInt, IntValue expressionLeftValueInt) {
+    private IntValue performOperation(IADTDictionary<String, IValue> symbolTable, IntValue expressionLeftValueInt, IntValue expressionRightValueInt) {
         switch (this.arithmeticOperator) {
             case "+" -> {
                 return new IntValue(expressionLeftValueInt.getValue() + expressionRightValueInt.getValue());

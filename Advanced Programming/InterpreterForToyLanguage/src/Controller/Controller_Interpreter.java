@@ -30,9 +30,11 @@ public class Controller_Interpreter {
         ProgramState programState = this.repositoryMemoryBased_interpreter.getCurrentProgramState();
         var executionStack= programState.getExecutionStack();
         System.out.println(programState.toString());
+        this.repositoryMemoryBased_interpreter.logProgramState();
         while(!executionStack.isEmpty()) {
             IStatement currentStatement = executionStack.pop();
             programState = currentStatement.execute(programState);
+            this.repositoryMemoryBased_interpreter.logProgramState();
             System.out.println(programState.toString());
         }
         return programState;

@@ -71,18 +71,24 @@ public class Interpreter {
         ProgramState programState4 = new ProgramState(new ADTStack<>(), new ADTDictionary<>(), new ADTList<>(), new ADTDictionary<>(), ex4);
 
         // Create controllers
-        Controller_Interpreter controller_1 = new Controller_Interpreter(new RepositoryMemoryBased_Interpreter(programState1, "log_ex1.txt"));
-        Controller_Interpreter controller_2 = new Controller_Interpreter(new RepositoryMemoryBased_Interpreter(programState2, "log_ex2.txt"));
-        Controller_Interpreter controller_3 = new Controller_Interpreter(new RepositoryMemoryBased_Interpreter(programState3, "log_ex3.txt"));
-        Controller_Interpreter controller_4 = new Controller_Interpreter(new RepositoryMemoryBased_Interpreter(programState4, "log_ex4.txt"));
+        try {
+            Controller_Interpreter controller_1 = new Controller_Interpreter(new RepositoryMemoryBased_Interpreter(programState1, "log_ex1.txt"));
+            Controller_Interpreter controller_2 = new Controller_Interpreter(new RepositoryMemoryBased_Interpreter(programState2, "log_ex2.txt"));
+            Controller_Interpreter controller_3 = new Controller_Interpreter(new RepositoryMemoryBased_Interpreter(programState3, "log_ex3.txt"));
+            Controller_Interpreter controller_4 = new Controller_Interpreter(new RepositoryMemoryBased_Interpreter(programState4, "log_ex4.txt"));
 
-        // Run view
-        ViewTextMenuBased viewTextMenuBased = new ViewTextMenuBased();
-        viewTextMenuBased.addCommand(new ExitCommand("exit", "exit"));
-        viewTextMenuBased.addCommand(new RunAllStepsCommand("allstep ex1", "allstep ex1", controller_1));
-        viewTextMenuBased.addCommand(new RunAllStepsCommand("allstep ex2", "allstep ex2", controller_2));
-        viewTextMenuBased.addCommand(new RunAllStepsCommand("allstep ex3", "allstep ex3", controller_3));
-        viewTextMenuBased.addCommand(new RunAllStepsCommand("allstep ex4", "allstep ex4", controller_4));
-        viewTextMenuBased.show();
+            // Run view
+            ViewTextMenuBased viewTextMenuBased = new ViewTextMenuBased();
+            viewTextMenuBased.addCommand(new ExitCommand("exit", "exit"));
+            viewTextMenuBased.addCommand(new RunAllStepsCommand("allstep ex1", "allstep ex1", controller_1));
+            viewTextMenuBased.addCommand(new RunAllStepsCommand("allstep ex2", "allstep ex2", controller_2));
+            viewTextMenuBased.addCommand(new RunAllStepsCommand("allstep ex3", "allstep ex3", controller_3));
+            viewTextMenuBased.addCommand(new RunAllStepsCommand("allstep ex4", "allstep ex4", controller_4));
+            viewTextMenuBased.show();
+        }
+        catch (Exception exception) {
+            System.out.println(exception);
+        }
+
     }
 }
