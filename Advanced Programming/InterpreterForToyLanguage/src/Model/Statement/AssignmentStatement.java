@@ -1,6 +1,7 @@
 package Model.Statement;
 
 import Model.ADT.IADTDictionary;
+import Model.ADT.IADTDictionaryForHeap;
 import Model.ADT.IADTList;
 import Model.Expression.IExpression;
 import Model.ProgramState;
@@ -22,7 +23,7 @@ public class AssignmentStatement implements IStatement {
         if (!symbolTable.isKeyDefined(this.variableName)) {
             throw new Exception("Assignment statement failed. Variable " + this.variableName + " was not declared.");
         }
-        IValue variabeNewValue = this.expression.evaluate(symbolTable);
+        IValue variabeNewValue = this.expression.evaluate(symbolTable, programState.getHeap());
         IType variableType = symbolTable.getValue(this.variableName).getType();
         if (!variabeNewValue.getType().equals(variableType)) {
             throw new Exception("Assignment statement failed. Invalid attempt to assign a " + variabeNewValue.getType()

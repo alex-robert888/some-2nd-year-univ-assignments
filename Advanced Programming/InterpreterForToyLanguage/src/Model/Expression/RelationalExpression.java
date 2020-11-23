@@ -1,6 +1,7 @@
 package Model.Expression;
 
 import Model.ADT.IADTDictionary;
+import Model.ADT.IADTDictionaryForHeap;
 import Model.Type.IntType;
 import Model.Value.BoolValue;
 import Model.Value.IValue;
@@ -18,13 +19,13 @@ public class RelationalExpression implements IExpression {
     }
 
     @Override
-    public IValue evaluate(IADTDictionary<String, IValue> symbolTable) throws Exception {
-        IValue expressionLeftValue =  this.leftExpression.evaluate(symbolTable);
+    public IValue evaluate(IADTDictionary<String, IValue> symbolTable, IADTDictionaryForHeap heap) throws Exception {
+        IValue expressionLeftValue =  this.leftExpression.evaluate(symbolTable, heap);
         if (!expressionLeftValue.getType().equals(new IntType())) {
             throw new Exception("Left side of the relational expression is not integer.");
         }
 
-        IValue expressionRightValue =  this.rightExpression.evaluate(symbolTable);
+        IValue expressionRightValue =  this.rightExpression.evaluate(symbolTable, heap);
         if (!expressionRightValue.getType().equals(new IntType())) {
             throw new Exception("Right side of the relational expression is not integer.");
         }
@@ -38,22 +39,22 @@ public class RelationalExpression implements IExpression {
     private IValue performComparison(IADTDictionary<String, IValue> symbolTable, IntValue expressionLeftValueInt, IntValue expressionRightValueInt) {
         switch (this.relation) {
             case "<" -> {
-                return new BoolValue(expressionLeftValueInt.getValue() < expressionLeftValueInt.getValue());
+                return new BoolValue(expressionLeftValueInt.getValue() < expressionRightValueInt.getValue());
             }
             case "<=" -> {
-                return new BoolValue(expressionLeftValueInt.getValue() <= expressionLeftValueInt.getValue());
+                return new BoolValue(expressionLeftValueInt.getValue() <= expressionRightValueInt.getValue());
             }
             case "==" -> {
-                return new BoolValue(expressionLeftValueInt.getValue() == expressionLeftValueInt.getValue());
+                return new BoolValue(expressionLeftValueInt.getValue() == expressionRightValueInt.getValue());
             }
             case "!=" -> {
-                return new BoolValue(expressionLeftValueInt.getValue() != expressionLeftValueInt.getValue());
+                return new BoolValue(expressionLeftValueInt.getValue() != expressionRightValueInt.getValue());
             }
             case ">=" -> {
-                return new BoolValue(expressionLeftValueInt.getValue() >= expressionLeftValueInt.getValue());
+                return new BoolValue(expressionLeftValueInt.getValue() >= expressionRightValueInt.getValue());
             }
             case ">" -> {
-                return new BoolValue(expressionLeftValueInt.getValue() > expressionLeftValueInt.getValue());
+                return new BoolValue(expressionLeftValueInt.getValue() > expressionRightValueInt.getValue());
             }
         }
         return null;

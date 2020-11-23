@@ -1,6 +1,7 @@
 package Model;
 
 import Model.ADT.IADTDictionary;
+import Model.ADT.IADTDictionaryForHeap;
 import Model.ADT.IADTList;
 import Model.ADT.IADTStack;
 import Model.Statement.IStatement;
@@ -11,20 +12,23 @@ import java.io.BufferedReader;
 import java.util.Iterator;
 
 public class ProgramState {
-    IADTStack<IStatement> executionStack;
-    IADTDictionary<String, IValue> symbolTable;
-    IADTList<String> outputList;
-    IADTDictionary<StringValue, BufferedReader> fileTable;
-    IStatement originalProgram;
+    private final IADTStack<IStatement> executionStack;
+    private final IADTDictionary<String, IValue> symbolTable;
+    private final IADTList<String> outputList;
+    private final IADTDictionary<StringValue, BufferedReader> fileTable;
+    private final IADTDictionaryForHeap heap;
+    private final IStatement originalProgram;
 
     public ProgramState(IADTStack<IStatement> executionStack, IADTDictionary<String, IValue> symbolTable,
-                        IADTList<String> outputList, IADTDictionary<StringValue, BufferedReader> fileTable, IStatement originalProgram)
+                        IADTList<String> outputList, IADTDictionary<StringValue, BufferedReader> fileTable,
+                        IADTDictionaryForHeap heap, IStatement originalProgram)
     {
         this.executionStack = executionStack;
         this.executionStack.push(originalProgram);
         this.symbolTable = symbolTable;
         this.outputList = outputList;
         this.fileTable = fileTable;
+        this.heap = heap;
         this.originalProgram = originalProgram.deepCopy();
     }
 
@@ -44,9 +48,13 @@ public class ProgramState {
         return this.fileTable;
     }
 
+    public IADTDictionaryForHeap getHeap() {
+        return this.heap;
+    }
+
     public String toString() {
         return "----- Program State -----\n== Execution stack: \n" + this.executionStack + "\n== Symbol Table: \n"
-                + this.symbolTable.toString() + "\n== Output: \n" + this.outputList.toString() + "\n File Table: \n" +
-                this.fileTable.toString();
+                + this.symbolTable.toString() + "\n== Output: \n" + this.outputList.toString() + "\n== File Table: \n" +
+                this.fileTable.toString() + "\n== Heap: \n" + this.heap.toString();
     }
 }

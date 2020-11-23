@@ -10,13 +10,15 @@ import java.util.ArrayList;
 
 public class RepositoryMemoryBased_Interpreter implements IRepository_Interpreter{
     ArrayList<ProgramState> programStates = new ArrayList<>();
-    PrintWriter printWriter;
     String logFile;
 
     public RepositoryMemoryBased_Interpreter(ProgramState programState, String logFile) throws IOException {
-        // this.printWriter = new PrintWriter(new BufferedWriter(new FileWriter(logFile, true)));
         this.logFile = logFile;
         this.programStates.add(programState);
+
+        // Empty the log file
+        FileWriter fileWriter = new FileWriter(this.logFile);
+        fileWriter.write("");
     }
 
     @Override

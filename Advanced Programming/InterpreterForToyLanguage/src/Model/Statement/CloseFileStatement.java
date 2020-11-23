@@ -19,7 +19,7 @@ public class CloseFileStatement implements IStatement{
     @Override
     public ProgramState execute(ProgramState programState) throws Exception {
         // Verify that the argument for the openFile method is a StringValue
-        IValue expressionValue = this.expressionFileName.evaluate(programState.getSymbolTable());
+        IValue expressionValue = this.expressionFileName.evaluate(programState.getSymbolTable(), programState.getHeap());
         if (!expressionValue.getType().equals(new StringType())) {
             throw new Exception("closeFile statement failed. File name given as argument has not a StringType.");
         }

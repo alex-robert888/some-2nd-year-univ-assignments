@@ -2,14 +2,8 @@ package Model.Statement;
 
 import Model.ADT.IADTDictionary;
 import Model.ProgramState;
-import Model.Type.BoolType;
-import Model.Type.IType;
-import Model.Type.IntType;
-import Model.Type.StringType;
-import Model.Value.BoolValue;
-import Model.Value.IValue;
-import Model.Value.IntValue;
-import Model.Value.StringValue;
+import Model.Type.*;
+import Model.Value.*;
 
 public class VariableDeclarationStatement implements IStatement{
     String variableName;
@@ -35,6 +29,9 @@ public class VariableDeclarationStatement implements IStatement{
         }
         else if (this.type.equals(new StringType())) {
             symbolTable.put(this.variableName, new StringValue(""));
+        }
+        else if (this.type.equals(new RefType(new IntType()))) {
+            symbolTable.put(this.variableName, new RefValue(0, new IntType())); // null address and of ref type int
         }
 
         return programState;

@@ -1,6 +1,7 @@
 package Model.Expression;
 
 import Model.ADT.IADTDictionary;
+import Model.ADT.IADTDictionaryForHeap;
 import Model.Type.BoolType;
 import Model.Value.BoolValue;
 import Model.Value.IValue;
@@ -17,13 +18,13 @@ public class LogicalExpression implements IExpression {
     }
 
     @Override
-    public IValue evaluate(IADTDictionary<String, IValue> symbolTable) throws Exception {
-        IValue expressionLeftSideValue = this.expressionLeftSide.evaluate(symbolTable);
+    public IValue evaluate(IADTDictionary<String, IValue> symbolTable, IADTDictionaryForHeap heap) throws Exception {
+        IValue expressionLeftSideValue = this.expressionLeftSide.evaluate(symbolTable, heap);
         if (expressionLeftSideValue.getType().equals(new BoolType())) {
             throw new Exception("Left side of the logical expression is not bool.");
         }
 
-        IValue expressionRightSideValue = this.expressionRightSide.evaluate(symbolTable);
+        IValue expressionRightSideValue = this.expressionRightSide.evaluate(symbolTable, heap);
         if (expressionRightSideValue.getType().equals(new BoolType())) {
             throw new Exception("Right side of the logical expression is not bool.");
         }

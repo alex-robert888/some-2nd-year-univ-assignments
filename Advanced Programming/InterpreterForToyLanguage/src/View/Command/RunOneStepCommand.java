@@ -16,7 +16,8 @@ public class RunOneStepCommand extends Command{
             controller.runOneStep();
         }
         catch (Exception exception) {
-            System.out.println(exception);
+            // System.out.println(exception);
+            exception.printStackTrace(new java.io.PrintStream(System.out));
         }
     }
 }

@@ -1,6 +1,7 @@
 package Model.Expression;
 
 import Model.ADT.IADTDictionary;
+import Model.ADT.IADTDictionaryForHeap;
 import Model.Type.IntType;
 import Model.Value.IValue;
 import Model.Value.IntValue;
@@ -16,13 +17,13 @@ public class ArithmeticExpression implements IExpression {
         this.arithmeticOperator = arithmeticOperator;
     }
     @Override
-    public IValue evaluate(IADTDictionary<String, IValue> symbolTable) throws Exception {
-        IValue expressionLeftValue = expressionLeft.evaluate(symbolTable);
+    public IValue evaluate(IADTDictionary<String, IValue> symbolTable, IADTDictionaryForHeap heap) throws Exception {
+        IValue expressionLeftValue = expressionLeft.evaluate(symbolTable, heap);
         if (!expressionLeftValue.getType().equals(new IntType())) {
             throw new Exception("Left side of the arithmetic expression is not integer.");
         }
 
-        IValue expressionRightValue = expressionRight.evaluate(symbolTable);
+        IValue expressionRightValue = expressionRight.evaluate(symbolTable, heap);
         if (!expressionRightValue.getType().equals(new IntType())) {
             throw new Exception("Right side of the arithmetic expression is not integer.");
         }

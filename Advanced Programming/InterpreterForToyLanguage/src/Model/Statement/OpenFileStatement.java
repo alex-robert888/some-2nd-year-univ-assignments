@@ -20,7 +20,7 @@ public class OpenFileStatement implements IStatement {
     @Override
     public ProgramState execute(ProgramState programState) throws Exception {
         // Verify that the argument for the openFile method is a StringValue
-        IValue expressionValue = this.expression.evaluate(programState.getSymbolTable());
+        IValue expressionValue = this.expression.evaluate(programState.getSymbolTable(), programState.getHeap());
         if (!expressionValue.getType().equals(new StringType())) {
             throw new Exception("openFile statement failed. Expression of openFile has not a StringType.");
         }

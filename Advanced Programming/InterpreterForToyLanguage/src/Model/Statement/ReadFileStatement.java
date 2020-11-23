@@ -28,7 +28,7 @@ public class ReadFileStatement implements IStatement{
         }
 
         // Verify that the fileName method is a StringValue
-        IValue expressionFileNameValue = this.expressionFileName.evaluate(programState.getSymbolTable());
+        IValue expressionFileNameValue = this.expressionFileName.evaluate(programState.getSymbolTable(), programState.getHeap());
         if (!expressionFileNameValue.getType().equals(new StringType())) {
             throw new Exception("readFile statement failed. File name given as first argument of has not a StringType.");
         }

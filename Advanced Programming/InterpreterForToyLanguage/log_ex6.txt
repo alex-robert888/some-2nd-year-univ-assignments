@@ -1,0 +1,125 @@
+----- Program State -----
+== Execution stack: 
+Ref(int) v; new(v, 20) print(rh(v)); wH(v, 30) print(rh(v));    
+== Symbol Table: 
+
+== Output: 
+
+== File Table: 
+
+== Heap: 
+
+----- Program State -----
+== Execution stack: 
+Ref(int) v; | new(v, 20) print(rh(v)); wH(v, 30) print(rh(v));   
+== Symbol Table: 
+
+== Output: 
+
+== File Table: 
+
+== Heap: 
+
+----- Program State -----
+== Execution stack: 
+new(v, 20) print(rh(v)); wH(v, 30) print(rh(v));   
+== Symbol Table: 
+v --> RefValue(0, int)
+
+== Output: 
+
+== File Table: 
+
+== Heap: 
+
+----- Program State -----
+== Execution stack: 
+new(v, 20) | print(rh(v)); wH(v, 30) print(rh(v));  
+== Symbol Table: 
+v --> RefValue(0, int)
+
+== Output: 
+
+== File Table: 
+
+== Heap: 
+
+----- Program State -----
+== Execution stack: 
+print(rh(v)); wH(v, 30) print(rh(v));  
+== Symbol Table: 
+v --> RefValue(1, int)
+
+== Output: 
+
+== File Table: 
+
+== Heap: 
+1 --> 20
+
+----- Program State -----
+== Execution stack: 
+print(rh(v)); | wH(v, 30) print(rh(v)); 
+== Symbol Table: 
+v --> RefValue(1, int)
+
+== Output: 
+
+== File Table: 
+
+== Heap: 
+1 --> 20
+
+----- Program State -----
+== Execution stack: 
+wH(v, 30) print(rh(v)); 
+== Symbol Table: 
+v --> RefValue(1, int)
+
+== Output: 
+20
+== File Table: 
+
+== Heap: 
+1 --> 20
+
+----- Program State -----
+== Execution stack: 
+wH(v, 30) | print(rh(v));
+== Symbol Table: 
+v --> RefValue(1, int)
+
+== Output: 
+20
+== File Table: 
+
+== Heap: 
+1 --> 20
+
+----- Program State -----
+== Execution stack: 
+print(rh(v));
+== Symbol Table: 
+v --> RefValue(1, int)
+
+== Output: 
+20
+== File Table: 
+
+== Heap: 
+1 --> 30
+
+----- Program State -----
+== Execution stack: 
+
+== Symbol Table: 
+v --> RefValue(1, int)
+
+== Output: 
+20
+30
+== File Table: 
+
+== Heap: 
+1 --> 30
+

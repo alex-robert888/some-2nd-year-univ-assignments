@@ -15,7 +15,7 @@ public class PrintStatement implements IStatement {
     @Override
     public ProgramState execute(ProgramState programState) throws Exception {
         IADTList<String> outputList = programState.getOutputList();
-        outputList.append(this.expression.evaluate(programState.getSymbolTable()).toString());
+        outputList.append(this.expression.evaluate(programState.getSymbolTable(), programState.getHeap()).toString());
         return programState;
     }
 
