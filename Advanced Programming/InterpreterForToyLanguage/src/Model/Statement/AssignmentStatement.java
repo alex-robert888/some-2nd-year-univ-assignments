@@ -30,7 +30,7 @@ public class AssignmentStatement implements IStatement {
                     + " to a " + variableType + ".");
         }
         symbolTable.put(this.variableName, variabeNewValue);
-        return programState;
+        return null;
     }
 
     @Override

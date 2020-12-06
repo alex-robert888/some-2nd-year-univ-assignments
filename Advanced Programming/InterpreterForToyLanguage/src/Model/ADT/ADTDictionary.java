@@ -8,6 +8,13 @@ import java.util.StringJoiner;
 public class ADTDictionary<T_Key, T_Value> implements IADTDictionary<T_Key, T_Value>{
     Map<T_Key, T_Value> map = new HashMap<>();
 
+    public ADTDictionary() {
+
+    }
+    public ADTDictionary(Map<T_Key, T_Value> map) {
+        this.map = map;
+    }
+
     @Override
     public void put(T_Key key, T_Value value) {
         this.map.put(key, value);
@@ -35,5 +42,19 @@ public class ADTDictionary<T_Key, T_Value> implements IADTDictionary<T_Key, T_Va
             stringJoiner.add(entry.getKey().toString() + " --> " + entry.getValue().toString() + "\n");
         }
         return stringJoiner.toString();
+    }
+
+    @Override
+    public Map<T_Key, T_Value> getContent() {
+        return this.map;
+    }
+
+    @Override
+    public ADTDictionary<T_Key, T_Value> deepCopy() {
+        Map<T_Key, T_Value> mapCopy = new HashMap<>();
+        for (Map.Entry<T_Key, T_Value> entry : map.entrySet()) {
+            mapCopy.put(entry.getKey(), entry.getValue());
+        }
+        return new ADTDictionary<>(mapCopy);
     }
 }

@@ -32,7 +32,7 @@ public class IfElseStatement implements IStatement{
         else {
             executionStack.push(this.elseStatement);
         }
-        return programState;
+        return null;
     }
 
     @Override

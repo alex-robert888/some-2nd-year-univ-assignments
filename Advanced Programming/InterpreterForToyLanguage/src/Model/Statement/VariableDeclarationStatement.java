@@ -33,8 +33,10 @@ public class VariableDeclarationStatement implements IStatement{
         else if (this.type.equals(new RefType(new IntType()))) {
             symbolTable.put(this.variableName, new RefValue(0, new IntType())); // null address and of ref type int
         }
-
-        return programState;
+        else if (this.type.equals(new RefType(new RefType(new IntType())))) {
+            symbolTable.put(this.variableName, new RefValue(0, new RefType(new IntType()))); // null address and of ref type int
+        }
+        return null;
     }
 
     @Override

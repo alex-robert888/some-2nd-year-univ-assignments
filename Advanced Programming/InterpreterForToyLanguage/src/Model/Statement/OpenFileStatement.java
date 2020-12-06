@@ -45,7 +45,7 @@ public class OpenFileStatement implements IStatement {
         // Add file descriptor to file table
         fileTable.put(expressionStringValue, bufferedReader);
 
-        return programState;
+        return null;
     }
 
     @Override

@@ -46,7 +46,7 @@ public class NewStatement implements IStatement {
         // Update in the SymbolTable the variable with the address and type
         symbolTable.put(this.variableName, new RefValue(key, expressionValue.getType()));
 
-        return programState;
+        return null;
     }
 
     @Override

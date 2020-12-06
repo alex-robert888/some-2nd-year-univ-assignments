@@ -26,6 +26,16 @@ public class ADTDictionaryForHeap implements IADTDictionaryForHeap {
     }
 
     @Override
+    public void setContent(Map<Integer, IValue> content) {
+        this.map = content;
+    }
+
+    @Override
+    public Map<Integer, IValue> getContent() {
+        return this.map;
+    }
+
+    @Override
     public boolean isKeyDefined(int key) {
         return this.map.containsKey(key);
     }

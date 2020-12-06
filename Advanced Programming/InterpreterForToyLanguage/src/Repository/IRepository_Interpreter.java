@@ -5,7 +5,9 @@ import Model.ProgramState;
 import java.util.ArrayList;
 
 public interface IRepository_Interpreter {
-    ProgramState getCurrentProgramState();
+    // ProgramState getCurrentProgramState();
     void addProgramState(ProgramState newProgramState);
-    void logProgramState() throws Exception;
+    void logProgramState(ProgramState programState) throws Exception;
+    ArrayList<ProgramState> getProgramStatesList();
+    void setProgramStatesList(ArrayList<ProgramState> programStatesList);
 }

@@ -13,7 +13,7 @@ public class RunOneStepCommand extends Command{
     @Override
     public void execute() {
         try {
-            controller.runOneStep();
+            // controller.runOneStep();
         }
         catch (Exception exception) {
             // System.out.println(exception);

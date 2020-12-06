@@ -1,0 +1,11 @@
+
+* [x] Back up db
+* [x] Create the test tables and relations
+* [x] Create the 3 specified views
+* [x] Insert data manually into Tables
+* [x] Insert data manually into View
+* [ ] Insert data manually into Tests
+* [ ] Insert data manually into TestViews
+* [ ] Insert data manually into TestTables (pay attention to the order of the tests)
+* [ ] Make a wrapper procedure that runs all the tests one by one (for both tables & views)
+* [ ] Make a function that inserts 

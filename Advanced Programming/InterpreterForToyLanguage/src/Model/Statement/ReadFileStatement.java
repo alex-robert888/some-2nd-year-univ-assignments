@@ -50,7 +50,7 @@ public class ReadFileStatement implements IStatement{
 
         // Assign value read from file to the variable corresponding to the variable name
         symbolTable.put(this.variableNameToStoreReadFileOutput, currentLineToInteger);
-        return programState;
+        return null;
     }
 
     @Override

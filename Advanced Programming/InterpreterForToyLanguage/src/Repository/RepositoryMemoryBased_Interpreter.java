@@ -21,13 +21,13 @@ public class RepositoryMemoryBased_Interpreter implements IRepository_Interprete
         fileWriter.write("");
     }
 
-    @Override
+/*    @Override
     public ProgramState getCurrentProgramState() throws RuntimeException {
         if (this.programStates.isEmpty()) {
             throw new RuntimeException();
         }
         return this.programStates.get(this.programStates.size() - 1);
-    }
+    }*/
 
     @Override
     public void addProgramState(ProgramState newProgramState) {
@@ -36,9 +36,19 @@ public class RepositoryMemoryBased_Interpreter implements IRepository_Interprete
     }
 
     @Override
-    public void logProgramState() throws Exception {
+    public void logProgramState(ProgramState programState) throws Exception {
         PrintWriter printWriter = new PrintWriter(new BufferedWriter(new FileWriter(this.logFile, true)));
-        printWriter.println(this.programStates.get(this.programStates.size() - 1).toString());
+        printWriter.println(programState.toString());
         printWriter.close();
+    }
+
+    @Override
+    public ArrayList<ProgramState> getProgramStatesList() {
+        return this.programStates;
+    }
+
+    @Override
+    public void setProgramStatesList(ArrayList<ProgramState> programStatesList) {
+        this.programStates = programStatesList;
     }
 }

@@ -71,6 +71,47 @@ public class Interpreter {
                                             new PrintStatement(new HeapReadingExpression(new VariableExpression("v")))
                                 ))));
 
+        // int v; v=4; (while (v>0) print(v);v=v-1);
+        IStatement ex7 =
+                new CompoundStatement(new VariableDeclarationStatement("v", new IntType()),
+                            new CompoundStatement(new AssignmentStatement("v", new ValueExpression(new IntValue(4))),
+                                    new WhileStatement(new RelationalExpression(">", new VariableExpression("v"), new ValueExpression(new IntValue(0))),
+                                            new CompoundStatement(new PrintStatement(new VariableExpression("v")),
+                                                    new AssignmentStatement("v", new ArithmeticExpression("-", new VariableExpression("v"), new ValueExpression(new IntValue(1))))
+                                            )
+                                    )
+                            )
+                        );
+
+        // Ref int v;new(v,20);Ref Ref int a; new(a,v); new(v,30);print(rH(rH(a)))
+        IStatement ex8 =
+                new CompoundStatement(new VariableDeclarationStatement("v", new RefType(new IntType())),
+                        new CompoundStatement (new NewStatement("v", new ValueExpression(new IntValue(20))),
+                                new CompoundStatement(new VariableDeclarationStatement("a", new RefType(new RefType(new IntType()))),
+                                        new CompoundStatement(new NewStatement("a", new VariableExpression("v")),
+                                                new CompoundStatement(new NewStatement("v", new ValueExpression(new IntValue(30))),
+                                                        new PrintStatement(new HeapReadingExpression(new HeapReadingExpression(new VariableExpression("a"))))
+
+                )))));
+
+        IStatement ex9 =
+                new CompoundStatement(new VariableDeclarationStatement("v", new IntType()),
+                        new CompoundStatement(new VariableDeclarationStatement("a", new RefType(new IntType())),
+                                new CompoundStatement(new AssignmentStatement("v", new ValueExpression(new IntValue(10))),
+                                        new CompoundStatement(new NewStatement("a", new ValueExpression(new IntValue(22))),
+                                                new CompoundStatement(new ForkStatement(
+                                                        new CompoundStatement(new HeapWritingStatement("a", new ValueExpression(new IntValue(30))),
+                                                                new CompoundStatement(new AssignmentStatement("v", new ValueExpression(new IntValue(32))),
+                                                                    new CompoundStatement(new PrintStatement(new VariableExpression("v")),
+                                                                            new PrintStatement(new HeapReadingExpression(new VariableExpression("a")))
+                                                                    )
+                                                                )
+                                                        )
+                                                ),
+                                                        new CompoundStatement(new PrintStatement(new VariableExpression("v")),
+                                                            new PrintStatement(new HeapReadingExpression(new VariableExpression("a")))
+                                                ))))));
+
         // Create program states
         ProgramState programState1 = new ProgramState(new ADTStack<>(), new ADTDictionary<>(), new ADTList<>(), new ADTDictionary<>(), new ADTDictionaryForHeap(), ex1);
         ProgramState programState2 = new ProgramState(new ADTStack<>(), new ADTDictionary<>(), new ADTList<>(), new ADTDictionary<>(), new ADTDictionaryForHeap(), ex2);
@@ -78,6 +119,9 @@ public class Interpreter {
         ProgramState programState4 = new ProgramState(new ADTStack<>(), new ADTDictionary<>(), new ADTList<>(), new ADTDictionary<>(), new ADTDictionaryForHeap(), ex4);
         ProgramState programState5 = new ProgramState(new ADTStack<>(), new ADTDictionary<>(), new ADTList<>(), new ADTDictionary<>(), new ADTDictionaryForHeap(), ex5);
         ProgramState programState6 = new ProgramState(new ADTStack<>(), new ADTDictionary<>(), new ADTList<>(), new ADTDictionary<>(), new ADTDictionaryForHeap(), ex6);
+        ProgramState programState7 = new ProgramState(new ADTStack<>(), new ADTDictionary<>(), new ADTList<>(), new ADTDictionary<>(), new ADTDictionaryForHeap(), ex7);
+        ProgramState programState8 = new ProgramState(new ADTStack<>(), new ADTDictionary<>(), new ADTList<>(), new ADTDictionary<>(), new ADTDictionaryForHeap(), ex8);
+        ProgramState programState9 = new ProgramState(new ADTStack<>(), new ADTDictionary<>(), new ADTList<>(), new ADTDictionary<>(), new ADTDictionaryForHeap(), ex9);
         // Create controllers
         try {
             Controller_Interpreter controller_1 = new Controller_Interpreter(new RepositoryMemoryBased_Interpreter(programState1, "log_ex1.txt"));
@@ -86,6 +130,9 @@ public class Interpreter {
             Controller_Interpreter controller_4 = new Controller_Interpreter(new RepositoryMemoryBased_Interpreter(programState4, "log_ex4.txt"));
             Controller_Interpreter controller_5 = new Controller_Interpreter(new RepositoryMemoryBased_Interpreter(programState5, "log_ex5.txt"));
             Controller_Interpreter controller_6 = new Controller_Interpreter(new RepositoryMemoryBased_Interpreter(programState6, "log_ex6.txt"));
+            Controller_Interpreter controller_7 = new Controller_Interpreter(new RepositoryMemoryBased_Interpreter(programState7, "log_ex7.txt"));
+            Controller_Interpreter controller_8 = new Controller_Interpreter(new RepositoryMemoryBased_Interpreter(programState8, "log_ex8.txt"));
+            Controller_Interpreter controller_9 = new Controller_Interpreter(new RepositoryMemoryBased_Interpreter(programState9, "log_ex9.txt"));
 
 
             // Run view
@@ -97,6 +144,9 @@ public class Interpreter {
             viewTextMenuBased.addCommand(new RunAllStepsCommand("allstep ex4", "allstep ex4", controller_4));
             viewTextMenuBased.addCommand(new RunAllStepsCommand("allstep ex5", "allstep ex5", controller_5));
             viewTextMenuBased.addCommand(new RunAllStepsCommand("allstep ex6", "allstep ex6", controller_6));
+            viewTextMenuBased.addCommand(new RunAllStepsCommand("allstep ex7", "allstep ex7", controller_7));
+            viewTextMenuBased.addCommand(new RunAllStepsCommand("allstep ex8", "allstep ex8", controller_8));
+            viewTextMenuBased.addCommand(new RunAllStepsCommand("allstep ex9", "allstep ex9", controller_9));
             viewTextMenuBased.show();
         }
         catch (Exception exception) {

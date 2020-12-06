@@ -35,7 +35,7 @@ public class CloseFileStatement implements IStatement{
         // Close file and remove it from file table
         bufferedReader.close();
         fileTable.remove(expressionStringValue);
-        return programState;
+        return null;
     }
 
     @Override
