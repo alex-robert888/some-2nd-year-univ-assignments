@@ -80,8 +80,6 @@ public class ProgramState {
         }
         IStatement currentStatement = this.executionStack.pop();
         return currentStatement.execute(this);
-        //this.repositoryMemoryBased_interpreter.updateProgramState(programState);
-        //System.out.println(newProgramState.toString());; // MAYBE HERE AND PRECEDING LINE ARE NOT CORRECT
     }
 
 }

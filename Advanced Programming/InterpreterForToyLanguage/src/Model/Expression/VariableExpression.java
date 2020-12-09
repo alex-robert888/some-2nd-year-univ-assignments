@@ -2,6 +2,7 @@ package Model.Expression;
 
 import Model.ADT.IADTDictionary;
 import Model.ADT.IADTDictionaryForHeap;
+import Model.Type.IType;
 import Model.Value.IValue;
 
 public class VariableExpression implements IExpression {
@@ -22,5 +23,10 @@ public class VariableExpression implements IExpression {
     @Override
     public String toString() {
         return this.variableName;
+    }
+
+    @Override
+    public IType checkTypes(IADTDictionary<String, IType> typeCheckerTable) throws Exception {
+        return typeCheckerTable.getValue(this.variableName);
     }
 }

@@ -14,31 +14,27 @@
     )
 )
 
+; Wrapper sort function
+(defun sort_list (lst)
+    (bubble_sort nil lst t))
 
 #|
-    min_from_list(l1...l2, minn) = {
-        l1, if n == 1
-        min (min_from_list(l2...ln, min(minn, l1)), otherwise
+    bubble_sort([l1...ln], [c1...cm], is-done) = {
+        bubble_sort([], [l1...ln], true), if m == 0 && is-done == true
+        bubble_sort([l1...lnc1..cm], [], is-done), if m == 1
+        bubble_sort([l1...ln], [c2...cm], is-done), if c1 == c2
+        bubble_sort([l1...lnc1], [c2...cm], is-done), if c1 <= c2
+        bubble_sort([l1...lnc2], [c3...cm], false), otherwise
     }
 |#
-(defun min_from_list (lst minn)
+(defun bubble_sort (lst current-list is-done)
     (cond 
-        ((eq 1 (list-length lst)) (car lst))
-        (t (min minn (min_from_list (cdr lst) minn)))
+        ((null current-list) (if is-done lst (bubble_sort nil lst t)))
+        ((null (cdr current-list))(bubble_sort (append lst current-list) nil is-done))
+        ((= (car current-list) (cadr current-list)) (bubble_sort lst (cdr current-list) is-done))
+        ((<= (car current-list) (cadr current-list)) (bubble_sort (append lst (list (car current-list)))(cdr current-list) is-done))
+		(t (bubble_sort (append lst (list (cadr current-list))) (cons (car current-list) (cddr current-list)) nil))
     )
 )
 
-(write (min_from_list '(4 2 3 7) 1000))
-
-#|
-    sort(l1...ln) = {
-        [], if n == 1
-        l1 (+) sort(l2...ln)
-    }
-|#
-; (defun sort (lst)
-;     (cond 
-;         (eq 1 (list-length (lst)) (car lst))
-;         (t (min ))
-;     )
-; )
+(write (sort_list '(5 2 1 2 5 4 3 2 5 6 4 4 3)))  ; 2

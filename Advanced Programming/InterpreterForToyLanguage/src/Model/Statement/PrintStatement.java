@@ -1,9 +1,11 @@
 package Model.Statement;
 
 import Model.ADT.ADTList;
+import Model.ADT.IADTDictionary;
 import Model.ADT.IADTList;
 import Model.Expression.IExpression;
 import Model.ProgramState;
+import Model.Type.IType;
 
 public class PrintStatement implements IStatement {
 
@@ -27,5 +29,11 @@ public class PrintStatement implements IStatement {
     @Override
     public String toString() {
         return new String("print(" + this.expression.toString() + ");");
+    }
+
+    @Override
+    public IADTDictionary<String, IType> checkTypes(IADTDictionary<String, IType> typeCheckerTable) throws Exception {
+        this.expression.checkTypes(typeCheckerTable);
+        return typeCheckerTable;
     }
 }

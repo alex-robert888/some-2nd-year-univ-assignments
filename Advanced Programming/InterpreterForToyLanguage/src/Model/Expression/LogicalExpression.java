@@ -3,6 +3,7 @@ package Model.Expression;
 import Model.ADT.IADTDictionary;
 import Model.ADT.IADTDictionaryForHeap;
 import Model.Type.BoolType;
+import Model.Type.IType;
 import Model.Value.BoolValue;
 import Model.Value.IValue;
 
@@ -38,6 +39,18 @@ public class LogicalExpression implements IExpression {
     @Override
     public String toString() {
         return this.expressionLeftSide.toString() + " " + this.getStringOperator() + " " + this.expressionLeftSide.toString();
+    }
+
+    @Override
+    public IType checkTypes(IADTDictionary<String, IType> typeCheckerTable) throws Exception {
+        IType expressionLeftType = this.expressionLeftSide.checkTypes(typeCheckerTable);
+        IType expressionRightType = this.expressionRightSide.checkTypes(typeCheckerTable);
+
+        if (!expressionLeftType.equals(new BoolType()) || !expressionRightType.equals(expressionLeftType)) {
+            throw new Exception("Logical expression: " + this.toString() + " can only operate with boolean expressions");
+        }
+
+        return new BoolType();
     }
 
     private BoolValue performOperation(IADTDictionary<String, IValue> symbolTable, BoolValue expressionRightValueInt, BoolValue expressionLeftValueInt) {

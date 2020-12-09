@@ -1,8 +1,11 @@
 package Model.Statement;
 
+import Model.ADT.IADTDictionary;
 import Model.Expression.IExpression;
 import Model.ProgramState;
 import Model.Type.BoolType;
+import Model.Type.IType;
+import Model.Type.IntType;
 import Model.Type.StringType;
 import Model.Value.IValue;
 import Model.Value.IntValue;
@@ -61,5 +64,19 @@ public class ReadFileStatement implements IStatement{
     @Override
     public String toString() {
         return String.format("readFile(%s, %s);", this.expressionFileName, this.variableNameToStoreReadFileOutput);
+    }
+
+    @Override
+    public IADTDictionary<String, IType> checkTypes(IADTDictionary<String, IType> typeCheckerTable) throws Exception {
+        IType variableType = typeCheckerTable.getValue(this.variableNameToStoreReadFileOutput);
+        IType expressionType = this.expressionFileName.checkTypes(typeCheckerTable);
+        if (!variableType.equals(new IntType())) {
+            throw new Exception("Read file statement: " + this.toString() + " must have the variable of int type.");
+        }
+
+        if (!expressionType.equals(new StringType())) {
+            throw new Exception("Read file statement: " + this.toString() + " must have the expression of string type.");
+        }
+        return typeCheckerTable;
     }
 }

@@ -1,8 +1,10 @@
 package Model.Statement;
 
 import Model.ADT.ADTStack;
+import Model.ADT.IADTDictionary;
 import Model.ADT.IADTStack;
 import Model.ProgramState;
+import Model.Type.IType;
 
 public class ForkStatement implements IStatement {
     private IStatement statement;
@@ -24,6 +26,12 @@ public class ForkStatement implements IStatement {
 
     public String toString() {
         return String.format("fork(%s)", this.statement.toString());
+    }
+
+    @Override
+    public IADTDictionary<String, IType> checkTypes(IADTDictionary<String, IType> typeCheckerTable) throws Exception {
+        this.statement.checkTypes(typeCheckerTable);
+        return typeCheckerTable;
     }
 
     public IStatement getStatement() {

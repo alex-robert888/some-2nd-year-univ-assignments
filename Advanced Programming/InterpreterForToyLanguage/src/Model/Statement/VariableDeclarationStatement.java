@@ -48,4 +48,10 @@ public class VariableDeclarationStatement implements IStatement{
     public String toString() {
         return new String(this.type.toString() + " " + this.variableName + ";");
     }
+
+    @Override
+    public IADTDictionary<String, IType> checkTypes(IADTDictionary<String, IType> typeCheckerTable) throws Exception {
+        typeCheckerTable.put(this.variableName, this.type);
+        return typeCheckerTable;
+    }
 }

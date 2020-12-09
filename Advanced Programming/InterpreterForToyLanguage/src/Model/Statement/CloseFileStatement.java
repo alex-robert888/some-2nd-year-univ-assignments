@@ -1,7 +1,9 @@
 package Model.Statement;
 
+import Model.ADT.IADTDictionary;
 import Model.Expression.IExpression;
 import Model.ProgramState;
+import Model.Type.IType;
 import Model.Type.StringType;
 import Model.Value.IValue;
 import Model.Value.StringValue;
@@ -46,5 +48,14 @@ public class CloseFileStatement implements IStatement{
     @Override
     public String toString() {
         return String.format("closeFile(%s);", this.expressionFileName.toString());
+    }
+
+    @Override
+    public IADTDictionary<String, IType> checkTypes(IADTDictionary<String, IType> typeCheckerTable) throws Exception {
+        IType expressionType = this.expressionFileName.checkTypes(typeCheckerTable);
+        if (!expressionType.equals(new StringType())) {
+            throw new Exception("Close file statement: " + this.toString() + " can only expression of type string.");
+        }
+        return typeCheckerTable;
     }
 }

@@ -2,6 +2,7 @@ package Model.Expression;
 
 import Model.ADT.IADTDictionary;
 import Model.ADT.IADTDictionaryForHeap;
+import Model.Type.IType;
 import Model.Value.IValue;
 
 public class ValueExpression implements IExpression {
@@ -19,4 +20,10 @@ public class ValueExpression implements IExpression {
     public String toString() {
         return this.value.toString();
     }
+
+    @Override
+    public IType checkTypes(IADTDictionary<String, IType> typeCheckerTable) throws Exception {
+        return this.value.getType();
+    }
+
 }

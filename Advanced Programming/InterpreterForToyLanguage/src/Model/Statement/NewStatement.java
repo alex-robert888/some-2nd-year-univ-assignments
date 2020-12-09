@@ -4,6 +4,7 @@ import Model.ADT.IADTDictionary;
 import Model.ADT.IADTDictionaryForHeap;
 import Model.Expression.IExpression;
 import Model.ProgramState;
+import Model.Type.IType;
 import Model.Type.RefType;
 import Model.Value.IValue;
 import Model.Value.RefValue;
@@ -57,5 +58,15 @@ public class NewStatement implements IStatement {
     @Override
     public String toString () {
         return String.format("new(%s, %s)", this.variableName, this.expression.toString());
+    }
+
+    @Override
+    public IADTDictionary<String, IType> checkTypes(IADTDictionary<String, IType> typeCheckerTable) throws Exception {
+        IType variableType = typeCheckerTable.getValue(this.variableName);
+        IType expressionType = this.expression.checkTypes(typeCheckerTable);
+        if (!variableType.equals(new RefType(expressionType))) {
+            throw new Exception("New statement: " + this.toString() + " have variable and expression of different types");
+        }
+        return typeCheckerTable;
     }
 }

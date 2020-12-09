@@ -1,8 +1,10 @@
 package Model.Statement;
 
+import Model.ADT.IADTDictionary;
 import Model.Expression.IExpression;
 import Model.ProgramState;
 import Model.Type.BoolType;
+import Model.Type.IType;
 import Model.Value.BoolValue;
 import Model.Value.IValue;
 
@@ -44,5 +46,18 @@ public class IfElseStatement implements IStatement{
     public String toString() {
         return new String("(IF(" + this.expression.toString() + ") THEN\n\t" + this.thenStatement.toString() +
                 "ELSE\n\t" + this.elseStatement.toString()) + "\n);";
+    }
+
+    @Override
+    public IADTDictionary<String, IType> checkTypes(IADTDictionary<String, IType> typeCheckerTable) throws Exception {
+        IType expressionType = this.expression.checkTypes(typeCheckerTable);
+        if (!expressionType.equals(new BoolType())) {
+            throw new Exception("If statement: " + this.toString() + " can only have a bool type expression");
+        }
+
+        this.thenStatement.checkTypes(typeCheckerTable.deepCopy());
+        this.elseStatement.checkTypes(typeCheckerTable.deepCopy());
+
+        return typeCheckerTable;
     }
 }

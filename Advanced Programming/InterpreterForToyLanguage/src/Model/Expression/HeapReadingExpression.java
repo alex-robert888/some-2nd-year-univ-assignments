@@ -2,6 +2,8 @@ package Model.Expression;
 
 import Model.ADT.IADTDictionary;
 import Model.ADT.IADTDictionaryForHeap;
+import Model.Type.IType;
+import Model.Type.RefType;
 import Model.Value.IValue;
 import Model.Value.RefValue;
 
@@ -32,5 +34,14 @@ public class HeapReadingExpression implements IExpression {
 
     public String toString() {
         return String.format("rh(%s)", this.expression.toString());
+    }
+
+    @Override
+    public IType checkTypes(IADTDictionary<String, IType> typeCheckerTable) throws Exception {
+        IType expressionType = this.expression.checkTypes(typeCheckerTable);
+        if (!(expressionType instanceof RefType)) {
+            throw new Exception("Heap reading expression: " + this.toString() + " can only operate with reference type expressions");
+        }
+        return ((RefType)expressionType).getInnerType();
     }
 }

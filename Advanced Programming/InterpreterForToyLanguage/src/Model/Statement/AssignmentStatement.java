@@ -43,4 +43,16 @@ public class AssignmentStatement implements IStatement {
         return new String(this.variableName + " = " + this.expression.toString() + ";");
     }
 
+    @Override
+    public IADTDictionary<String, IType> checkTypes(IADTDictionary<String, IType> typeCheckerTable) throws Exception {
+        IType typeVariable = typeCheckerTable.getValue(variableName);
+        IType typeExpression = expression.checkTypes(typeCheckerTable);
+
+        if (!typeVariable.equals(typeExpression)) {
+            throw new Exception("Assignment statement:  " + this.toString() + " can only operate with variables & expressions of same type.");
+        }
+
+        return typeCheckerTable;
+    }
+
 }

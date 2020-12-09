@@ -2,6 +2,7 @@ package Model.Expression;
 
 import Model.ADT.IADTDictionary;
 import Model.ADT.IADTDictionaryForHeap;
+import Model.Type.IType;
 import Model.Type.IntType;
 import Model.Value.IValue;
 import Model.Value.IntValue;
@@ -38,6 +39,19 @@ public class ArithmeticExpression implements IExpression {
     public String toString() {
         return this.expressionLeft.toString() + " " + this.arithmeticOperator + " " + this.expressionRight.toString();
     }
+
+    @Override
+    public IType checkTypes(IADTDictionary<String, IType> typeCheckerTable) throws Exception {
+        IType leftExpressionType = expressionLeft.checkTypes(typeCheckerTable);
+        IType rightExpressionType = expressionRight.checkTypes(typeCheckerTable);
+
+        if (!leftExpressionType.equals(new IntType()) || !rightExpressionType.equals(new IntType())) {
+            throw new Exception("Arithmetic expression: " + this.toString() + " can only operate with integer expressions");
+        }
+
+        return new IntType();
+    }
+
 
     private IntValue performOperation(IADTDictionary<String, IValue> symbolTable, IntValue expressionLeftValueInt, IntValue expressionRightValueInt) {
         switch (this.arithmeticOperator) {

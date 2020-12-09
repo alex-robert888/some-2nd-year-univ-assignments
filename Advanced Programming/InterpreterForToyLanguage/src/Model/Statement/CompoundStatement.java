@@ -1,8 +1,10 @@
 package Model.Statement;
 
 import Model.ADT.ADTStack;
+import Model.ADT.IADTDictionary;
 import Model.ADT.IADTStack;
 import Model.ProgramState;
+import Model.Type.IType;
 
 import java.sql.Statement;
 import java.util.Deque;
@@ -32,5 +34,11 @@ public class CompoundStatement implements IStatement {
     @Override
     public String toString() {
         return new String(this.leftStatement.toString() + " " + this.rightStatement.toString() + " ");
+    }
+
+    @Override
+    public IADTDictionary<String, IType> checkTypes(IADTDictionary<String, IType> typeCheckerTable) throws Exception {
+        IADTDictionary<String, IType> typeCheckerTableOfLeftStatement = this.leftStatement.checkTypes(typeCheckerTable);
+        return this.rightStatement.checkTypes(typeCheckerTableOfLeftStatement);
     }
 }

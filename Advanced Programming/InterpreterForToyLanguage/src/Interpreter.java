@@ -112,6 +112,24 @@ public class Interpreter {
                                                             new PrintStatement(new HeapReadingExpression(new VariableExpression("a")))
                                                 ))))));
 
+        // Perform type checking
+        try {
+            ex1.checkTypes(new ADTDictionary<>());
+            ex2.checkTypes(new ADTDictionary<>());
+            ex3.checkTypes(new ADTDictionary<>());
+            ex4.checkTypes(new ADTDictionary<>());
+            ex5.checkTypes(new ADTDictionary<>());
+            ex6.checkTypes(new ADTDictionary<>());
+            ex7.checkTypes(new ADTDictionary<>());
+            ex8.checkTypes(new ADTDictionary<>());
+            ex9.checkTypes(new ADTDictionary<>());
+
+            System.out.println("\nType checking performed.\n");
+        }
+        catch (Exception exception) {
+            System.out.println(exception.getMessage());
+        }
+
         // Create program states
         ProgramState programState1 = new ProgramState(new ADTStack<>(), new ADTDictionary<>(), new ADTList<>(), new ADTDictionary<>(), new ADTDictionaryForHeap(), ex1);
         ProgramState programState2 = new ProgramState(new ADTStack<>(), new ADTDictionary<>(), new ADTList<>(), new ADTDictionary<>(), new ADTDictionaryForHeap(), ex2);

@@ -2,6 +2,8 @@ package Model.Expression;
 
 import Model.ADT.IADTDictionary;
 import Model.ADT.IADTDictionaryForHeap;
+import Model.Type.BoolType;
+import Model.Type.IType;
 import Model.Type.IntType;
 import Model.Value.BoolValue;
 import Model.Value.IValue;
@@ -34,6 +36,18 @@ public class RelationalExpression implements IExpression {
         IntValue expressionLeftValueInt = (IntValue)expressionLeftValue;
 
         return this.performComparison(symbolTable, expressionLeftValueInt, expressionRightValueInt);
+    }
+
+    @Override
+    public IType checkTypes(IADTDictionary<String, IType> typeCheckerTable) throws Exception {
+        IType leftExpressionType = this.leftExpression.checkTypes(typeCheckerTable);
+        IType rightExpressionType = this.rightExpression.checkTypes(typeCheckerTable);
+
+        if (!leftExpressionType.equals(new IntType()) || !rightExpressionType.equals(new IntType())) {
+            throw new Exception("Relational expression: " + this.toString() + " can only operate with integer expressions");
+        }
+
+        return new BoolType();
     }
 
     private IValue performComparison(IADTDictionary<String, IValue> symbolTable, IntValue expressionLeftValueInt, IntValue expressionRightValueInt) {

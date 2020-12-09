@@ -62,15 +62,6 @@ public class Controller_Interpreter {
     }
 
     void oneStepForAllPrg(ArrayList<ProgramState> programStatesList) throws Exception {
-        //before the execution, print the PrgState List into the log file
-/*        programStatesList.forEach(prg -> {
-            try {
-                repositoryMemoryBased_interpreter.logProgramState(prg);
-            } catch (Exception exception) {
-                exception.printStackTrace();
-            }
-        });*/
-
         //prepare the list of callables
         List<Callable<ProgramState>> callList = programStatesList.stream()
                 .map((ProgramState p) -> (Callable<ProgramState>)(() -> {return p.runOneStep();}))
@@ -91,7 +82,6 @@ public class Controller_Interpreter {
 
         //add the new created threads to the list of existing threads
         programStatesList.addAll(newPrgList);
-        //------------------------------------------------------------------------------
 
         //after the execution, print the ProgramState List into the log file
         programStatesList.forEach(prg -> {
